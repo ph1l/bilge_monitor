@@ -1,0 +1,12 @@
+[Unit]
+Description=Monitor Bilge
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi
+ExecStart=/home/pi/monitor_bilge.py
+
+[Install]
+WantedBy=multi-user.target
