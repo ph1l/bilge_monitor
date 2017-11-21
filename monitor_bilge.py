@@ -8,23 +8,50 @@ import time
 
 import RPi.GPIO as GPIO
 
+##### CONFIGURATION #####
+
+# GPIO_IN_PIN - Set the GPIO pin number to monitor
+#
 GPIO_IN_PIN = 17
+
+# WARNING_THRESHOLD - seconds before we enter the "Warning" state, right
+# now we only print a message to the console.
+#
+# TODO: decide if we even need a warning state. If we do, we should
+# probably send a notification...
+#
 WARNING_THRESHOLD = 10
+
+# ERROR_THRESHOLD -  seconds before we enter the "Error" state. This
+# triggers a notofocation (configured below.)
+#
 ERROR_THRESHOLD = 30
-RESEND_ERROR_THRESHOLD = 60*60*3 # 3 hours
-FROM = "bilgemonitor@svzeno.com"
-TO = "elektron@halo.nu"
+
+# NOTIFICATION_FROM - from address for notification email
+#
+NOTIFICATION_FROM = "bilgemonitor@svzeno.com"
+
+# NOTIFICATION_TO - to addresses for notification email
+#
+NOTIFICATION_TO = ["elektron@halo.nu"]
+
+# NOTIFICATION_RESEND - seconds in error state before we send an
+# additional notofocation
+#
+NOTIFICATION_RESEND = 60*60*3 # 3 hours
+
+##### END OF CONFIG #####
 
 
 def send_notification(subject, message):
 
     msg = MIMEText(message)
     msg['Subject'] = subject
-    msg['From'] = FROM
-    msg['To'] = TO
+    msg['From'] = NOTIFICATION_FROM
+    msg['To'] = ", ".join(NOTIFICATION_TO)
 
     s = smtplib.SMTP('localhost')
-    s.sendmail(FROM, [TO], msg.as_string())
+    s.sendmail(NOTIFICATION_FROM, NOTIFICATION_TO, msg.as_string())
     s.quit()
 
 def main():
