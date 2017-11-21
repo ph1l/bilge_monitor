@@ -16,3 +16,15 @@ in the circuit... :-/
 
 Your raspberry pi will need a configured mail server listening to
 `localhost:25` for this to send notifications.
+
+# Installation
+
+```sh
+$ vi monitor_bilge.py # edit CONFIG section
+$ sudo install -o root -g root -m 0755 monitor_bilge.py /usr/local/sbin/
+$ sudo install -o root -g root -m 0644 monitor_bilge.service /etc/systemd/system/
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable monitor_bilge.service
+$ sudo systemctl start monitor_bilge.service
+$ sudo systemctl status monitor_bilge.service
+```
