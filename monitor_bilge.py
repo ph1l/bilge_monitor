@@ -31,8 +31,7 @@ def main():
 
     # Setup
     logging.basicConfig(
-        format='%(asctime)s [%(levelname)s] %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S',
+        format='%(levelname)s: %(message)s',
         level=logging.INFO
         )
     logging.info("Setup GPIO pin #{}".format(GPIO_IN_PIN))
