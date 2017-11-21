@@ -10,7 +10,7 @@ import RPi.GPIO as GPIO
 
 GPIO_IN_PIN = 17
 WARNING_THRESHOLD = 10
-ERROR_THRESHOLD = 60
+ERROR_THRESHOLD = 30
 RESEND_ERROR_THRESHOLD = 60*60*3 # 3 hours
 FROM = "bilgemonitor@svzeno.com"
 TO = "elektron@halo.nu"
